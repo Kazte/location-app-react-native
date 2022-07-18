@@ -65,6 +65,7 @@ const ImageSelector = ({ onImage }) => {
                 onPress={() => {
                     handleTakeImage()
                 }}
+                color={colors.secondary}
             />
         </View>
     )
