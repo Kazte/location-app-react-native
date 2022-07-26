@@ -1,7 +1,8 @@
-import { useSelector } from "react-redux"
-import React from "react"
+import { useSelector, useDispatch } from "react-redux"
+import React, { useEffect } from "react"
 import { View, StyleSheet, Text, FlatList } from "react-native"
 import PlaceItem from "../components/PlaceItem"
+import { loadPlaces } from "../store/place.slice"
 
 const styles = StyleSheet.create({
     container: {
@@ -15,6 +16,8 @@ const styles = StyleSheet.create({
 })
 
 const PlaceListScreen = ({ navigation }) => {
+    const dispatch = useDispatch()
+
     const places = useSelector((state) => state.place.places)
 
     const onSelectPlace = (id) => {
@@ -22,6 +25,10 @@ const PlaceListScreen = ({ navigation }) => {
     }
 
     const renderItem = ({ item }) => <PlaceItem {...item} onSelect={onSelectPlace} />
+
+    useEffect(() => {
+        dispatch(loadPlaces())
+    }, [])
 
     const listEmptyComponent = () => (
         <View style={styles.emptyContainer}>
